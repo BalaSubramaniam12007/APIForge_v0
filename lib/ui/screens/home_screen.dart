@@ -17,6 +17,7 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const AppTitle(),
                     const SpecLoaderSection(),
                     const LoadingIndicator(),
                   ],

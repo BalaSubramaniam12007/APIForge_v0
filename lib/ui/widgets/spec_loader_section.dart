@@ -21,32 +21,34 @@ class _SpecLoaderSectionState extends State<SpecLoaderSection> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      SpecInput(
-        controller: _controller,
-        onSubmit: () async {
-          NavigationUtils.navigateToSpecScreen(context, () async {
-            final provider = Provider.of<SpecProvider>(context, listen: false);
-            await provider.loadSpec(_controller.text);
-            _controller.clear();
-          });
-        },
-      ),
-      const SizedBox(height: 16),
-      const Divider(height: 1, thickness: 1, color: Colors.grey),
-      const SizedBox(height: 16),
-      FileUploadButton(
-        onFileSelected: (content, fileName) async {
-          NavigationUtils.navigateToSpecScreen(context, () async {
-            final provider = Provider.of<SpecProvider>(context, listen: false);
-            await provider.loadSpecFromFile(content, fileName);
-          });
-        },
-      ),
-    ],
-  );
-}
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SpecInput(
+          controller: _controller,
+          onSubmit: () async {
+            NavigationUtils.navigateToSpecScreen(context, () async {
+              final provider = Provider.of<SpecProvider>(context, listen: false);
+              await provider.loadSpec(_controller.text);
+              _controller.clear();
+            });
+          },
+        ),
+        const SizedBox(height: 16),
+        const Divider(height: 1, thickness: 1, color: Colors.grey),
+        const SizedBox(height: 16),
+        FileUploadButton(
+          onFileSelected: (content, fileName) async {
+            NavigationUtils.navigateToSpecScreen(context, () async {
+              final provider = Provider.of<SpecProvider>(context, listen: false);
+              await provider.loadSpecFromFile(content, fileName);
+            });
+          },
+        ),
+        const SizedBox(height: 8),
+        const SwaggerLink(),
+      ],
+    );
+  }
 }
