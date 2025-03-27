@@ -16,6 +16,7 @@ class SpecProvider with ChangeNotifier {
 
   final ApiService _apiService = ApiService();
   final ParserService _parserService = ParserService();
+  final PostmanExporter _postmanExporter = PostmanExporter(); 
 
   Future<void> loadSpec(String url) async {
     try {
@@ -82,5 +83,12 @@ class SpecProvider with ChangeNotifier {
     _spec = null;
     _error = null;
     notifyListeners();
+  }
+
+  Map<String, dynamic> exportToPostmanCollection() {
+    if (_spec == null) {
+      throw Exception('No specification loaded to export');
+    }
+    return _postmanExporter.exportToPostmanCollection(_spec!);
   }
 }

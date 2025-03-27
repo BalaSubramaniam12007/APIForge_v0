@@ -1,6 +1,0 @@
-[build]
-  command = "flutter pub get && flutter build web --release"
-  publish = "build/web"
-
-[build.environment]
-  FLUTTER_VERSION = "3.29.2"

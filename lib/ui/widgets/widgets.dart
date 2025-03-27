@@ -11,3 +11,4 @@ export 'spec_header.dart';
 export 'spec_input.dart';
 export 'spec_search_bar.dart';
 export 'spec_loader_section.dart';
+export 'file_downloader.dart';
