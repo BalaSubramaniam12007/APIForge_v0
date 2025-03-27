@@ -1,0 +1,44 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow when pushing to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      #  Checkout the apiforge_v0 repository
+      - name: Checkout apiforge_v0
+        uses: actions/checkout@v3
+
+      #  Set up Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'  
+          flutter-version: '3.x'  
+          
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Step 4: Generate code (for json_serializable)
+      - name: Generate code
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      # Step 5: Build the web app
+      - name: Build web
+        run: flutter build web --release
+
+      # Step 6: Deploy to BalaSubramaniam12007.github.io
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          external_repository: BalaSubramaniam12007/BalaSubramaniam12007.github.io
+          publish_dir: build/web  # Directory containing the built web files
+          publish_branch: main  # Branch in BalaSubramaniam12007.github.io to deploy to
+          commit_message: "Deploy latest build from apiforge_v0"
